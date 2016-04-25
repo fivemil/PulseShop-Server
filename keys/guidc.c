@@ -56,7 +56,7 @@ static char * createGUID()
 }
 
 PyDoc_STRVAR(guidc__doc__,
-"OpenBazaar GUID PoW calculator");
+"PulseShop GUID PoW calculator");
 
 PyDoc_STRVAR(generate__doc__,
 "Returns a private key which produces a vaild GUID");

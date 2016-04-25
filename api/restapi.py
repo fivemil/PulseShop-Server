@@ -37,10 +37,10 @@ DEFAULT_RECORDS_OFFSET = 0
 def clean(s):
     return bleach.clean(s, tags=ALLOWED_TAGS, attributes=ALLOWED_ATTRIBUTES, styles=ALLOWED_STYLES)
 
-class OpenBazaarAPI(APIResource):
+class PulseShopAPI(APIResource):
     """
     This RESTful API allows clients to pull relevant data from the
-    OpenBazaar daemon for use in a GUI or other application.
+    PulseShop daemon for use in a GUI or other application.
     """
 
     # pylint: disable=E0213, E1102
@@ -1404,12 +1404,12 @@ class OpenBazaarAPI(APIResource):
 
 class RestAPI(Site):
 
-    def __init__(self, mserver, kserver, openbazaar_protocol, username, password,
+    def __init__(self, mserver, kserver, PulseShop_protocol, username, password,
                  authenticated_sessions, only_ip=None, timeout=60 * 60 * 1):
         if only_ip == None:
             only_ip = ["127.0.0.1"]
         self.only_ip = only_ip
-        api_resource = OpenBazaarAPI(mserver, kserver, openbazaar_protocol,
+        api_resource = PulseShopAPI(mserver, kserver, PulseShop_protocol,
                                      username, password, authenticated_sessions)
         Site.__init__(self, api_resource, timeout=timeout)
 

@@ -11,7 +11,7 @@ from dht.node import Node, NodeHeap
 from dht.protocol import KademliaProtocol
 from dht.storage import ForgetfulStorage
 from dht.utils import digest
-from net.wireprotocol import OpenBazaarProtocol
+from net.wireprotocol import PulseShopProtocol
 from protos.objects import Value, FULL_CONE
 from twisted.internet import udp, address, task
 from twisted.trial import unittest
@@ -49,7 +49,7 @@ class ValueSpiderCrawlTest(unittest.TestCase):
         self.protocol = KademliaProtocol(self.node, self.storage, 20, self.db, self.signing_key)
 
 
-        self.wire_protocol = OpenBazaarProtocol(self.db, self.own_addr, FULL_CONE)
+        self.wire_protocol = PulseShopProtocol(self.db, self.own_addr, FULL_CONE)
         self.wire_protocol.register_processor(self.protocol)
 
         self.protocol.connect_multiplexer(self.wire_protocol)
@@ -230,7 +230,7 @@ class NodeSpiderCrawlTest(unittest.TestCase):
         self.db = Database(filepath="test.db")
         self.protocol = KademliaProtocol(self.node, self.storage, 20, self.db, self.signing_key)
 
-        self.wire_protocol = OpenBazaarProtocol(self.db, self.own_addr, FULL_CONE)
+        self.wire_protocol = PulseShopProtocol(self.db, self.own_addr, FULL_CONE)
         self.wire_protocol.register_processor(self.protocol)
 
         self.protocol.connect_multiplexer(self.wire_protocol)

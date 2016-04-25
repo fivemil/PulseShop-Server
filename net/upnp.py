@@ -7,7 +7,7 @@ class PortMapper(object):
     UPnP Port Mapping tool, so we don't need to manually forward ports on a
     router.
     Ideally we'd use a random port within a range of about 1000 possible ports.
-    Ideally we'd delete the mapping when we shutdown OpenBazaar but that might
+    Ideally we'd delete the mapping when we shutdown PulseShop but that might
     not be the case.
     Support port mapping for TCP and UDP ports.
     Created on Aug 14, 2014
@@ -15,7 +15,7 @@ class PortMapper(object):
     """
     DEBUG = False  # boolean
     upnp = None  # miniupnpc.UPnP
-    OPEN_BAZAAR_DESCRIPTION = 'OpenBazaar Server'
+    OPEN_BAZAAR_DESCRIPTION = 'PulseShop Server'
     upnp_device_available = False
 
     @staticmethod
@@ -161,7 +161,7 @@ class PortMapper(object):
         return mappings
 
     def clean_my_mappings(self, port):
-        """Delete previous OpenBazaar UPnP Port mappings if found."""
+        """Delete previous PulseShop UPnP Port mappings if found."""
         if self.upnp_device_available:
             mappings = self.get_mapping_list()
             for mapping in mappings:

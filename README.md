@@ -1,12 +1,12 @@
-# OpenBazaar Server
-[![Build Status](https://travis-ci.org/OpenBazaar/OpenBazaar-Server.svg?branch=master)](https://travis-ci.org/OpenBazaar/OpenBazaar-Server) [![Coverage Status](https://coveralls.io/repos/OpenBazaar/OpenBazaar-Server/badge.svg?branch=master&service=github)](https://coveralls.io/github/OpenBazaar/OpenBazaar-Server?branch=master) [![Slack Status](https://openbazaar-slackin-drwasho.herokuapp.com/badge.svg)](https://openbazaar-slackin-drwasho.herokuapp.com)
+# PulseShop Server
+[![Build Status](https://travis-ci.org/PulseShop/PulseShop-Server.svg?branch=master)](https://travis-ci.org/PulseShop/PulseShop-Server) [![Coverage Status](https://coveralls.io/repos/PulseShop/PulseShop-Server/badge.svg?branch=master&service=github)](https://coveralls.io/github/PulseShop/PulseShop-Server?branch=master) [![Slack Status](https://PulseShop-slackin-drwasho.herokuapp.com/badge.svg)](https://PulseShop-slackin-drwasho.herokuapp.com)
 
-This repo contains the OpenBazaar networking daemon that can be used to access the p2p network. It establishes connections and maintains
+This repo contains the PulseShop networking daemon that can be used to access the p2p network. It establishes connections and maintains
 a Kademlia style DHT. Rest and websocket APIs are available for clients to communicate with the daemon.
 
 ## Install
 
-Pre-built installers which bundle the client and server components can be found [here](https://github.com/OpenBazaar/OpenBazaar-Installer/releases).
+Pre-built installers which bundle the client and server components can be found [here](https://github.com/PulseShop/PulseShop-Installer/releases).
 
 To install just this server:
 ```bash
@@ -18,13 +18,13 @@ Depending on your system configuration you may need to install some additional d
 ## Usage
 
 ```bash
-python openbazaard.py start --help
+python PulseShopd.py start --help
 ```
 
 ```
-usage: python openbazaard.py start [<args>]
+usage: python PulseShopd.py start [<args>]
 
-Start the OpenBazaar server
+Start the PulseShop server
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -46,4 +46,4 @@ optional arguments:
 ```
 
 ## License
-OpenBazaar Server is licensed under the [MIT License](LICENSE).
+PulseShop Server is licensed under the [MIT License](LICENSE).

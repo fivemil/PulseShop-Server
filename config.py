@@ -27,16 +27,16 @@ DEFAULTS = {
     'ksize': '20',
     'alpha': '3',
     'transaction_fee': '10000',
-    'libbitcoin_servers': 'tcp://libbitcoin1.openbazaar.org:9091',
-    'libbitcoin_servers_testnet': 'tcp://libbitcoin2.openbazaar.org:9091, <Z&{.=LJSPySefIKgCu99w.L%b^6VvuVp0+pbnOM',
+    'libbitcoin_servers': 'tcp://libbitcoin1.PulseShop.org:9091',
+    'libbitcoin_servers_testnet': 'tcp://libbitcoin2.PulseShop.org:9091, <Z&{.=LJSPySefIKgCu99w.L%b^6VvuVp0+pbnOM',
     'resolver': 'http://resolver.onename.com/',
     'ssl_cert': None,
     'ssl_key': None,
     'ssl': False,
     'username': None,
     'password': None,
-    'mainnet_seeds': 'seed2.openbazaar.org:8080,8b17082a57d648894a5181cb6e1b8a6f5b3b7e1c347c0671abfcd7deb6f105fe',
-    'testnet_seeds': 'seed.openbazaar.org:8080,5b44be5c18ced1bc9400fe5e79c8ab90204f06bebacc04dd9c70a95eaca6e117',
+    'mainnet_seeds': 'seed2.PulseShop.org:8080,8b17082a57d648894a5181cb6e1b8a6f5b3b7e1c347c0671abfcd7deb6f105fe',
+    'testnet_seeds': 'seed.PulseShop.org:8080,5b44be5c18ced1bc9400fe5e79c8ab90204f06bebacc04dd9c70a95eaca6e117',
 
 }
 
@@ -58,7 +58,7 @@ def _platform_agnostic_data_path(data_folder):
     User may configure using relative path, absolute path or use default.
       Relative path puts named folder in users home directory.
       Absolute path uses (obviously) the named absolute path.
-      Default is currently to use 'OpenBazaar' in home directory.
+      Default is currently to use 'PulseShop' in home directory.
     See issue #163
     '''
     if data_folder:
@@ -88,11 +88,11 @@ def _platform_agnostic_data_folder(data_folder):
 
     name = ''
     if _is_osx():
-        name = join('Library', 'Application Support', 'OpenBazaar')
+        name = join('Library', 'Application Support', 'PulseShop')
     elif _is_linux():
-        name = '.openbazaar'
+        name = '.PulseShop'
     else:
-        name = join(os.getenv('APPDATA'), 'OpenBazaar')
+        name = join(os.getenv('APPDATA'), 'PulseShop')
 
     return name
 
@@ -256,14 +256,14 @@ def delete_value(section, name):
 if __name__ == '__main__':
 
     def test_is_well_formed_seed_string():
-        well_formed = 'seed.openbazaar.org:8080,5b44be5c18ced1bc9400fe5e79c8ab90204f06bebacc04dd9c70a95eaca6e117'
+        well_formed = 'seed.PulseShop.org:8080,5b44be5c18ced1bc9400fe5e79c8ab90204f06bebacc04dd9c70a95eaca6e117'
         # test ill-formed url's (build fails with pylint error if we use long/descriptive names
         # key too short
-#        bad_1 = 'seed.openbazaar.org:8080,5b44be5c18ced1bc9400fe5e79'
+#        bad_1 = 'seed.PulseShop.org:8080,5b44be5c18ced1bc9400fe5e79'
         # no port number
-#        bad_2 = 'seed.openbazaar.org,5b44be5c18ced1bc9400fe5e79c8ab90204f06bebacc04dd9c70a95eaca6e117'
+#        bad_2 = 'seed.PulseShop.org,5b44be5c18ced1bc9400fe5e79c8ab90204f06bebacc04dd9c70a95eaca6e117'
         # no host name in url
-#        bad_3 = 'openbazaar.org:8080,5b44be5c18ced1bc9400fe5e79c8ab90204f06bebacc04dd9c70a95eaca6e117'
+#        bad_3 = 'PulseShop.org:8080,5b44be5c18ced1bc9400fe5e79c8ab90204f06bebacc04dd9c70a95eaca6e117'
 
         assert _is_well_formed_seed_string(well_formed)
 #        assert not _is_well_formed_seed_string(b1)
@@ -271,8 +271,8 @@ if __name__ == '__main__':
 #        assert not _is_well_formed_seed_string(b3)
 
     def test_is_seed_tuple():
-        good = ('seed.openbazaar.org:8080', '5b44be5c18ced1bc9400fe5e79c8ab90204f06bebacc04dd9c70a95eaca6e117')
-        bad_not_tuple = 'seed.openbazaar.org:8080,5b44be5c18ced1bc9400fe5e79c8ab90204f06bebacc04dd9c70a95eaca6e117'
+        good = ('seed.PulseShop.org:8080', '5b44be5c18ced1bc9400fe5e79c8ab90204f06bebacc04dd9c70a95eaca6e117')
+        bad_not_tuple = 'seed.PulseShop.org:8080,5b44be5c18ced1bc9400fe5e79c8ab90204f06bebacc04dd9c70a95eaca6e117'
         bad_not_seed_tuple = ('aoioai', 'aoioai')
         assert _is_tuple(good, "seed")
         assert not _is_tuple(bad_not_tuple, "seed")

@@ -6,7 +6,7 @@ from zope.interface import Interface, Attribute
 class Multiplexer(Interface):
     """
     This interface defines the structure of the protocol class that handles creating new network connections
-    and sending and receiving messages. At present this is only used by the OpenBazaarProtocol class which
+    and sending and receiving messages. At present this is only used by the PulseShopProtocol class which
     is the protocol for our UDP server. In the future if we want to add additional transports, like I2P, we
     they will need to implement this interface so as to not break the rest of the code.
     """
@@ -89,7 +89,7 @@ class Connection(Interface):
 class MessageProcessor(Interface):
     """
     This is an interface for processing messages coming off the wire. Classes that implement this interface should be
-    passed into 'OpenBazaarProtocol.register_processor' which will parse new messages to determine the message type
+    passed into 'PulseShopProtocol.register_processor' which will parse new messages to determine the message type
     then route them to the correct processor.
     """
 
@@ -98,7 +98,7 @@ class MessageProcessor(Interface):
 
     def receive_message(datagram, sender, connection, ban_score):
         """
-        Called by OpenBazaarProtocol when it receives a new message intended for this processor.
+        Called by PulseShopProtocol when it receives a new message intended for this processor.
 
         Args:
             datagram: The protobuf that came off the wire in unserialized format. Basic validity checks, such as
@@ -120,7 +120,7 @@ class MessageProcessor(Interface):
 
     def __iter__():
         """
-        OpenBazaarProtocol will use this to check which message types are handled by this processor.
+        PulseShopProtocol will use this to check which message types are handled by this processor.
         :return: iter([list of enums])
         """
 

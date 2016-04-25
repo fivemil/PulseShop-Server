@@ -30,7 +30,7 @@ from net.heartbeat import HeartbeatFactory
 from net.sslcontext import ChainedOpenSSLContextFactory
 from net.upnp import PortMapper
 from net.utils import looping_retry
-from net.wireprotocol import OpenBazaarProtocol
+from net.wireprotocol import PulseShopProtocol
 from obelisk.client import LibbitcoinClient
 from protos.objects import FULL_CONE, RESTRICTED, SYMMETRIC
 from twisted.internet import reactor, task
@@ -55,7 +55,7 @@ def run(*args):
             maxRotatedFiles=1)
         log.addObserver(FileLogObserver(logFile, level=LOGLEVEL).emit)
         log.addObserver(FileLogObserver(level=LOGLEVEL).emit)
-        logger = Logger(system="OpenBazaard")
+        logger = Logger(system="PulseShopd")
 
         # NAT traversal
         p = PortMapper()
@@ -81,7 +81,7 @@ def run(*args):
             task.LoopingCall(check_unfunded_for_payment, db, libbitcoin_client, nlistener, TESTNET).start(600)
             task.LoopingCall(rebroadcast_unconfirmed, db, libbitcoin_client, TESTNET).start(600)
 
-        protocol = OpenBazaarProtocol(db, (ip_address, port), nat_type, testnet=TESTNET,
+        protocol = PulseShopProtocol(db, (ip_address, port), nat_type, testnet=TESTNET,
                                       relaying=True if nat_type == FULL_CONE else False)
 
         # kademlia
@@ -206,7 +206,7 @@ def run(*args):
 
 if __name__ == "__main__":
     # pylint: disable=anomalous-backslash-in-string
-    class OpenBazaard(Daemon):
+    class PulseShopd(Daemon):
         def run(self, *args):
             run(*args)
 
@@ -214,13 +214,13 @@ if __name__ == "__main__":
         def __init__(self, daemon):
             self.daemon = daemon
             parser = argparse.ArgumentParser(
-                description='OpenBazaar-Server v0.1.8',
+                description='PulseShop-Server v0.1.8',
                 usage='''
-    python openbazaard.py <command> [<args>]
-    python openbazaard.py <command> --help
+    python PulseShopd.py <command> [<args>]
+    python PulseShopd.py <command> --help
 
 commands:
-    start            start the OpenBazaar server
+    start            start the PulseShop server
     stop             shutdown the server and disconnect
     restart          restart the server
 ''')
@@ -234,8 +234,8 @@ commands:
         def start(self):
 
             parser = argparse.ArgumentParser(
-                description="Start the OpenBazaar server",
-                usage="python openbazaard.py start [<args>]"
+                description="Start the PulseShop server",
+                usage="python PulseShopd.py start [<args>]"
             )
             parser.add_argument('-d', '--daemon', action='store_true',
                                 help="run the server in the background as a daemon")
@@ -248,7 +248,7 @@ commands:
             parser.add_argument('-r', '--restapiport', help="set the rest api port", default=18469)
             parser.add_argument('-w', '--websocketport', help="set the websocket api port", default=18466)
             parser.add_argument('-b', '--heartbeatport', help="set the heartbeat port", default=18470)
-            parser.add_argument('--pidfile', help="name of the pid file", default="openbazaard.pid")
+            parser.add_argument('--pidfile', help="name of the pid file", default="PulseShopd.pid")
             args = parser.parse_args(sys.argv[2:])
 
             self.print_splash_screen()
@@ -274,9 +274,9 @@ commands:
             parser = argparse.ArgumentParser(
                 description="Shutdown the server and disconnect",
                 usage='''usage:
-        python openbazaard.py stop''')
+        python PulseShopd.py stop''')
             args = parser.parse_args(sys.argv[2:])
-            print "OpenBazaar server stopping..."
+            print "PulseShop server stopping..."
             self.daemon.stop()
 
         def restart(self):
@@ -284,9 +284,9 @@ commands:
             parser = argparse.ArgumentParser(
                 description="Restart the server",
                 usage='''usage:
-        python openbazaard.py restart''')
+        python PulseShopd.py restart''')
             parser.parse_args(sys.argv[2:])
-            print "Restarting OpenBazaar server..."
+            print "Restarting PulseShop server..."
             self.daemon.restart()
 
         @staticmethod
@@ -303,6 +303,6 @@ commands:
             print "\_______  /   __/ \___  >___|  /" + OKBLUE + "______  /(____  /_____ \(____  (____  /__|" + ENDC
             print "        \/|__|        \/     \/  " + OKBLUE + "     \/      \/      \/     \/     \/" + ENDC
             print
-            print "OpenBazaar Server v0.1 starting..."
+            print "PulseShop Server v0.1 starting..."
 
-    Parser(OpenBazaard('/tmp/openbazaard.pid'))
+    Parser(PulseShopd('/tmp/PulseShopd.pid'))

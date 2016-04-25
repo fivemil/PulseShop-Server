@@ -31,7 +31,7 @@ from protos.objects import Listings
 
 class Contract(object):
     """
-    A class for creating and interacting with OpenBazaar Ricardian contracts.
+    A class for creating and interacting with PulseShop Ricardian contracts.
     """
 
     def __init__(self, database, contract=None, hash_value=None, testnet=False):
@@ -912,7 +912,7 @@ class Contract(object):
 
     def delete(self, delete_images=False):
         """
-        Deletes the contract json from the OpenBazaar directory as well as the listing
+        Deletes the contract json from the PulseShop directory as well as the listing
         metadata from the db and all the related images in the file system.
         """
 
@@ -942,7 +942,7 @@ class Contract(object):
 
     def save(self):
         """
-        Saves the json contract into the OpenBazaar/store/listings/contracts/ directory.
+        Saves the json contract into the PulseShop/store/listings/contracts/ directory.
         It uses the title as the file name so it's easy on human eyes. A mapping of the
         hash of the contract and file path is stored in the database so we can retrieve
         the contract with only its hash.

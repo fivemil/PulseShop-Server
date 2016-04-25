@@ -22,7 +22,7 @@ from zope.interface.verify import verifyObject
 from zope.interface import implements
 
 
-class OpenBazaarProtocol(ConnectionMultiplexer):
+class PulseShopProtocol(ConnectionMultiplexer):
     """
     A protocol extending the txrudp datagram protocol. This is the main protocol
     which gets passed into the twisted UDPServer. It handles the setup and tear down
@@ -57,7 +57,7 @@ class OpenBazaarProtocol(ConnectionMultiplexer):
         implements(ConnectionHandler)
 
         def __init__(self, processors, nat_type, relay_node, ban_score, *args, **kwargs):
-            super(OpenBazaarProtocol.ConnHandler, self).__init__(*args, **kwargs)
+            super(PulseShopProtocol.ConnHandler, self).__init__(*args, **kwargs)
             self.log = Logger(system=self)
             self.processors = processors
             self.connection = None
@@ -183,14 +183,14 @@ class OpenBazaarProtocol(ConnectionMultiplexer):
     class ConnHandlerFactory(HandlerFactory):
 
         def __init__(self, processors, nat_type, relay_node, ban_score):
-            super(OpenBazaarProtocol.ConnHandlerFactory, self).__init__()
+            super(PulseShopProtocol.ConnHandlerFactory, self).__init__()
             self.processors = processors
             self.nat_type = nat_type
             self.relay_node = relay_node
             self.ban_score = ban_score
 
         def make_new_handler(self, *args, **kwargs):
-            return OpenBazaarProtocol.ConnHandler(self.processors, self.nat_type, self.relay_node, self.ban_score)
+            return PulseShopProtocol.ConnHandler(self.processors, self.nat_type, self.relay_node, self.ban_score)
 
     def register_processor(self, processor):
         """Add a new class which implements the `MessageProcessor` interface."""

@@ -20,7 +20,7 @@ from dht.node import Node
 from dht.utils import digest, deferredDict
 from keys.keychain import KeyChain
 from log import Logger, FileLogObserver
-from net.wireprotocol import OpenBazaarProtocol
+from net.wireprotocol import PulseShopProtocol
 from protos import objects
 from random import shuffle
 from seed import peers
@@ -69,7 +69,7 @@ def run(*args):
         # Start the kademlia server
         this_node = Node(keychain.guid, ip_address, port,
                          keychain.verify_key.encode(), None, objects.FULL_CONE, False)
-        protocol = OpenBazaarProtocol(db, (ip_address, port), objects.FULL_CONE, testnet=TESTNET, relaying=True)
+        protocol = PulseShopProtocol(db, (ip_address, port), objects.FULL_CONE, testnet=TESTNET, relaying=True)
 
         try:
             kserver = Server.loadState('cache.pickle', ip_address, port, protocol, db, objects.FULL_CONE, None)
@@ -198,7 +198,7 @@ def run(*args):
 
 if __name__ == "__main__":
     # pylint: disable=anomalous-backslash-in-string
-    class OpenBazaard(Daemon):
+    class PulseShopd(Daemon):
         def run(self, *args):
             run(*args)
 
@@ -206,7 +206,7 @@ if __name__ == "__main__":
         def __init__(self, daemon):
             self.daemon = daemon
             parser = argparse.ArgumentParser(
-                description='OpenBazaard Seed Server v0.1',
+                description='PulseShopd Seed Server v0.1',
                 usage='''
     python httpseed.py <command> [<args>]
     python httpseed.py <command> --help
@@ -227,12 +227,12 @@ commands:
             parser = argparse.ArgumentParser(
                 description="Start the seed server",
                 usage='''usage:
-        python openbazaard.py start [-d DAEMON]''')
+        python PulseShopd.py start [-d DAEMON]''')
             parser.add_argument('-d', '--daemon', action='store_true', help="run the server in the background")
             parser.add_argument('-t', '--testnet', action='store_true', help="use the test network")
             parser.add_argument('-p', '--port', help="set the http port", default=8080)
             args = parser.parse_args(sys.argv[2:])
-            print "OpenBazaar Seed Server v0.1 starting..."
+            print "PulseShop Seed Server v0.1 starting..."
             unix = ("linux", "linux2", "darwin")
             if args.daemon and platform.system().lower() in unix:
                 self.daemon.start(args.testnet, int(args.port))
@@ -244,8 +244,8 @@ commands:
             parser = argparse.ArgumentParser(
                 description="Shutdown the server and disconnect",
                 usage='''usage:
-        python openbazaard.py stop''')
-            print "OpenBazaar Seed Server stopping..."
+        python PulseShopd.py stop''')
+            print "PulseShop Seed Server stopping..."
             self.daemon.stop()
 
         def restart(self):
@@ -253,8 +253,8 @@ commands:
             parser = argparse.ArgumentParser(
                 description="Restart the server",
                 usage='''usage:
-        python openbazaard.py restart''')
-            print "Restarting OpenBazaar server..."
+        python PulseShopd.py restart''')
+            print "Restarting PulseShop server..."
             self.daemon.restart()
 
-    Parser(OpenBazaard('/tmp/httpseed.pid'))
+    Parser(PulseShopd('/tmp/httpseed.pid'))

@@ -1,6 +1,6 @@
 """
 An implementation of the kademlia protocol based on https://github.com/bmuller/kademlia
-and modified for use in OpenBazaar.
+and modified for use in PulseShop.
 
 Modifications include:
     Protobuf for serializing the wire protocol.

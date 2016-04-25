@@ -1,6 +1,6 @@
 """
 Copyright (c) 2014 Brian Muller
-Copyright (c) 2015 OpenBazaar
+Copyright (c) 2015 PulseShop
 """
 
 import abc

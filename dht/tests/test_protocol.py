@@ -17,7 +17,7 @@ from dht.utils import digest
 from dht.storage import ForgetfulStorage
 from dht.node import Node
 from protos import message, objects
-from net.wireprotocol import OpenBazaarProtocol
+from net.wireprotocol import PulseShopProtocol
 from db import datastore
 from config import PROTOCOL_VERSION
 
@@ -53,7 +53,7 @@ class KademliaProtocolTest(unittest.TestCase):
         self.db = datastore.Database(filepath="test.db")
         self.protocol = KademliaProtocol(self.node, self.storage, 20, self.db, self.signing_key)
 
-        self.wire_protocol = OpenBazaarProtocol(self.db, self.own_addr, objects.FULL_CONE)
+        self.wire_protocol = PulseShopProtocol(self.db, self.own_addr, objects.FULL_CONE)
         self.wire_protocol.register_processor(self.protocol)
 
         self.protocol.connect_multiplexer(self.wire_protocol)
